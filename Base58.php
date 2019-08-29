@@ -3,7 +3,7 @@
  * This file is part of the php-base58 project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/php-base58
  *
- * Copyright (c) 2015-2018 Rich Morgan, rich@richmorgan.me
+ * Copyright (c) 2015-2019 Rich Morgan, rich@richmorgan.me
  *
  * The MIT License (MIT)
  *
@@ -135,5 +135,7 @@ final class Base58
                 throw new \Exception('Empty or invalid parameters passed to ' . $caller[count($caller)-1]['function'] . ' function. Argument list received: ' . var_export($caller[count($caller)-1]['args'], true));
             }
         }
+        
+        return true;
     }
 }
