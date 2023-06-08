@@ -3,7 +3,7 @@
  * This file is part of the php-base58 project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/php-base58
  *
- * Copyright (c) 2015-2019 Rich Morgan, rich@richmorgan.me
+ * Copyright (c) 2015-2023 Rich Morgan, rich@richmorgan.me
  *
  * The MIT License (MIT)
  *
@@ -61,22 +61,22 @@ final class Base58
 
             if (strlen($hex) % 2 != 0) {
                 throw new \Exception('Error in Base58::encode(): Uneven number of hex characters passed to function.  Value received was "' . var_export($hex, true) . '".');
-            } else {
-                $orighex = $hex;
-                $new     = '';
+            }
 
-                while (bccomp($hex, '0') > 0) {
-                    $qq  = bcdiv($hex, '58');
-                    $rem = bcmod($hex, '58');
-                    $val = $qq;
-                    $new = $new . $this->b58_chars[$rem];
-                }
+            $orighex = $hex;
+            $new     = '';
 
-                $return = strrev($return);
+             while (bccomp($hex, '0') > 0) {
+                $qq  = bcdiv($hex, '58');
+                $rem = bcmod($hex, '58');
+                $val = $qq;
+                $new = $new . $this->b58_chars[$rem];
+            }
 
-                for ($i = 0; $i < strlen($orighex) && substr($orighex, $i, 2) == '00'; $i += 2) {
-                    $return = '1' . $return;
-                }
+            $return = strrev($return);
+
+            for ($i = 0; $i < strlen($orighex) && substr($orighex, $i, 2) == '00'; $i += 2) {
+                $return = '1' . $return;
             }
 
             return $return;
