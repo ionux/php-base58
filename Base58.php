@@ -3,7 +3,7 @@
  * This file is part of the php-base58 project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/php-base58
  *
- * Copyright (c) 2015-2023 Rich Morgan, rich@richmorgan.me
+ * Copyright (c) 2015-2024 Rich Morgan, rich@richmorgan.me
  *
  * The MIT License (MIT)
  *
