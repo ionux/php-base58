@@ -3,7 +3,7 @@
  * This file is part of the php-base58 project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/php-base58
  *
- * Copyright (c) 2015-2024 Rich Morgan, rich@richmorgan.me
+ * Copyright (c) 2015-2025 Rich Morgan
  *
  * The MIT License (MIT)
  *
@@ -29,7 +29,7 @@
  * Base-58 value encoding/decoding class.  This encoding
  * type is specifically used for Bitcoin-related tasks.
  *
- * @author Rich Morgan <rich@richmorgan.me>
+ * @author Rich Morgan
  */
 final class Base58
 {
