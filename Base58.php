@@ -25,6 +25,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  ******************************************************************************/
 
+
 /**
  * Base-58 value encoding/decoding class.  This encoding
  * type is specifically used for Bitcoin-related tasks.
@@ -51,7 +52,7 @@ final class Base58
      *
      * @param  string     $hex
      * @return string     $return
-     * @throws \Exception
+     * @throws Base58Exception
      */
     public function encode($hex)
     {
@@ -60,7 +61,7 @@ final class Base58
         try {
 
             if (strlen($hex) % 2 != 0) {
-                throw new \Exception('Error in Base58::encode(): Uneven number of hex characters passed to function.  Value received was "' . var_export($hex, true) . '".');
+                throw new Base58Exception('Error in Base58::encode(): Uneven number of hex characters passed to function.  Value received was "' . var_export($hex, true) . '".');
             }
 
             $orighex = $hex;
@@ -82,7 +83,9 @@ final class Base58
             return $return;
 
         } catch (\Exception $e) {
-            throw $e;
+            throw new Base58Exception("Caught the following exception in Base58::encode(): " . $e->getMessage(), 0, $e);
+        } catch (\Error $e) {
+            throw new Base58Exception("Fatal error in Base58::encode(): " . $e->getMessage(), 0, $e);
         }
     }
 
@@ -91,7 +94,7 @@ final class Base58
      *
      * @param  string     $base58
      * @return string     $return
-     * @throws \Exception
+     * @throws Base58Exception
      */
     public function decode($base58)
     {
@@ -116,7 +119,9 @@ final class Base58
             return (strlen($return) %2 != 0) ? '0' . $return : $return;
 
         } catch (\Exception $e) {
-            throw $e;
+            throw new Base58Exception("Caught the following exception in Base58::encode(): " . $e->getMessage(), 0, $e);
+        } catch (\Error $e) {
+            throw new Base58Exception("Fatal error in Base58::encode(): " . $e->getMessage(), 0, $e);
         }
     }
 
@@ -125,17 +130,26 @@ final class Base58
      *
      * @param  array   $params  The array of parameters to check.
      * @return boolean          Will only be true, otherwise throws \Exception
-     * @throws \Exception
+     * @throws Base58Exception
      */
     private function paramsCheck(array $params)
     {
         foreach ($params as $key => $value) {
             if (true === empty($value)) {
                 $caller = debug_backtrace();
-                throw new \Exception('Empty or invalid parameters passed to ' . $caller[count($caller)-1]['function'] . ' function. Argument list received: ' . var_export($caller[count($caller)-1]['args'], true));
+                throw new Base58Exception('Empty or invalid parameters passed to ' . $caller[count($caller)-1]['function'] . ' function. Argument list received: ' . var_export($caller[count($caller)-1]['args'], true));
             }
         }
         
         return true;
     }
+}
+
+/**
+ * This class supports improved error and exception handling.
+ *
+ * @author Rich Morgan
+ */
+class Base58Exception extends \Exception
+{
 }
